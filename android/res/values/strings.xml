@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">IT-fadder</string>
+    <string name="find_your_way_in_halden">Finn fram i Halden</string>
+    <string name="find_your_way_at_remmen">Finn fram på Remmen</string>
+    <string name="what_is_happening">Hva skjer?</string>
+    <string name="call_a_buddy">Ring en fadder</string>
+    <string name="text_a_buddy">Tekst en fadder</string>
+    <string name="mail_a_buddy">Mail en fadder</string>
+
+</resources>
