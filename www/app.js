@@ -1,4 +1,6 @@
-﻿Ext.application({
+﻿
+
+Ext.application({
 	glossOnIcon: false,
     name: 'IT-fadder',
 	phoneStartupScreen: 'resources/loading/Homescreen.jpg',
@@ -18,6 +20,7 @@
     ],
 
     launch: function() {
+		
 		//Serves as an interface against buddies.json
 		//All buddies must be stored in buddies.json with a first name, 
 		//last name, email, phone number and picture file name (captain_placeholder.jpg).
@@ -116,16 +119,18 @@
 			   });
 				
 		var mapScreen = Ext.create('Ext.Map', {
-            title: 'Kart',
+			
+			
+			title: 'Kart',
 			iconCls: 'home',
 			cls: 'home',
 			scrollable: true,
 			
 			mapOptions : {
-                center : new google.maps.LatLng(37.381592, -122.135672),  //nearby San Fran
+                center : position, 
                 zoom : 14,
                 mapTypeId : google.maps.MapTypeId.ROADMAP,
-                navigationControl: false,
+                navigationControl: true,
                 navigationControlOptions: {
                     style: google.maps.NavigationControlStyle.DEFAULT
                 }
@@ -133,7 +138,7 @@
 
             plugins : [
                 new Ext.plugin.google.Tracker({
-                    trackSuspended: false,   //suspend tracking initially
+                    trackSuspended: true,   //suspend tracking initially
                     allowHighAccuracy: true,
                     marker: new google.maps.Marker({
                         position: position,
@@ -147,8 +152,12 @@
 
             listeners: {
                 maprender: function(comp, map) {
-                    var marker = new google.maps.Marker({
-                        position: position,
+                    var directionsDisplay = new google.maps.DirectionsRenderer();
+					var directionsService = new google.maps.DirectionsService();
+					directionsDisplay.setMap(map);
+					
+					var remmen = new google.maps.Marker({
+                        position: new google.maps.LatLng(59.129102,11.352654),
                         title : 'Remmen',
                         map: map
                     });
@@ -165,24 +174,29 @@
 					});
 					
 
-                    google.maps.event.addListener(marker, 'click', function() {
+                    google.maps.event.addListener(remmen, 'click', function() {
                         infowindow.setContent("Høgskolen i Østfold");
-						infowindow.open(map, marker);
+						infowindow.open(map, remmen);
+                    });					
+					google.maps.event.addListener(remmen, 'dblclick', function() {
+						calcRoute(position, remmen.position, map)  
                     });
 					
 					google.maps.event.addListener(stadion, 'click', function() {
                         infowindow.setContent("Stadion studentboliger");
 						infowindow.open(map, stadion);
+                    });					
+					google.maps.event.addListener(stadion, 'dblclick', function() {
+                        calcRoute(position, stadion.position, map)   
                     });
 					
 					google.maps.event.addListener(kongens, 'click', function() {
                         infowindow.setContent("Kongens");
 						infowindow.open(map, kongens);
+                    });					
+					google.maps.event.addListener(kongens, 'dblclick', function() {
+                        calcRoute(position, kongens.position, map)
                     });
-
-                    setTimeout(function() {
-                        map.panTo(position);
-                    }, 1000);
                 }
 
             }
@@ -196,5 +210,31 @@
 
             items: [homeScreen, eventScreen, mapScreen, buddyScreen]
         });
-    }
+    },
+	
+	
 });
+
+ function calcRoute() {
+		
+		console.log(arguments[0].toString());
+		console.log(arguments[1].toString());
+		var directionsDisplay = new google.maps.DirectionsRenderer();
+		var directionsService = new google.maps.DirectionsService();
+		directionsDisplay.setMap(arguments[2]);
+		
+		var request = {
+			origin:arguments[0], 
+			destination:arguments[1],
+			travelMode: google.maps.DirectionsTravelMode.DRIVING
+		};
+		
+		directionsService.route(request, function(response, status) {
+		  if (status == google.maps.DirectionsStatus.OK) {
+			
+			directionsDisplay.setDirections(response);
+			}else{
+			console.log('something went wrong in getting directions');
+		  }
+		});
+	}
