@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<buddies>
+	<buddy>
+		<name>Billy Dev Developer</name>
+		<email>example@nodomain.com</email>
+		<phone>0047 123 45 678</phone>
+	</buddy>
+	<buddy>
+		<name>Jane Design Designer</name>
+		<email>example@nodomain.com</email>
+		<phone>0047 123 45 678</phone>
+	</buddy>
+	<buddy>
+		<name>Gill Sys Linuxguru</name>
+		<email>example@nodomain.com</email>
+		<phone>0047 123 45 678</phone>
+	</buddy>
+</buddies> 
