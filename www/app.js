@@ -11,10 +11,44 @@
         'Ext.Panel',
         'Ext.Toolbar',
         'Ext.plugin.google.Traffic',
-        'Ext.plugin.google.Tracker'
+        'Ext.plugin.google.Tracker',
+		'Ext.data.Store',
+        'Ext.List',
+        'Ext.plugin.PullRefresh'
     ],
 
     launch: function() {
+		//Serves as an interface against buddies.json
+		//All buddies must be stored in buddies.json with a first name, 
+		//last name, email, phone number and picture file name (captain_placeholder.jpg).
+		//A file with that same name must exist in poth img/buddies_82 and img/buddies_320 
+		//with the resolution 82x82 pixels and 320x320 pixels respectively.
+		var store = Ext.create('Ext.data.Store', {
+            //give the store some fields
+            fields: ['firstName', 'lastName', 'phone', 'email', 'imageName'],
+
+            //filter the data using the firstName field
+            sorters: 'firstName',
+
+            //autoload the data from the server
+            autoLoad: true,
+
+            //setup the grouping functionality to group by the first letter of the firstName field
+            grouper: {
+                groupFn: function(record) {
+                    return record.get('firstName')[0];
+                }
+            },
+
+            //setup the proxy for the store to use an ajax proxy and give it a url to load
+            //the local contacts.json file
+            proxy: {
+                type: 'ajax',
+                url: 'buddies.json'
+            }
+        });
+	
+	
         // The following is accomplished with the Google Map API
         var position = new google.maps.LatLng(37.44885, -122.158592),  //Sencha HQ
 
@@ -104,44 +138,55 @@
                 ]
             });
 		
-		
+		// For statiske skjermer uten noen funksjon kan iframe og en vanlig HTML-side brukes 
+		// (forenkler, og gjør app.js mer oversiktlig). 
 		var homeScreen = {
                     title: 'Hjem',
                     iconCls: 'home',
                     cls: 'home',
                     scrollable: true,
                     html: [
-                        '<img height=260 src="img/enigma_logo.jpg" />',
-                        '<h1>Velkommen til IT-avdelingen ved Høgskolen i østfold!</h1>',
-                        '<p>Trenger du å finne fram til et sted eller en fadder? Denne appen er laget nettop for deg!</p>',
-						'<p>Finn fram til der det skjer med det innebyggede kartet, eller få kontakt med en fadder. Du finner også enkelt planene for fadderukene.</p>',
-						'<p>Besøk oss gjerne på <a href="http://enigma.hiof.no">forumet</a>!'
+                        '<iframe style="position:absolute;left: 0px;width: 100%;top: 0px;height: 100%;" src="./hjem.html" />'
                     ].join("")
                 };
 				
-				
+		// For statiske skjermer uten noen funksjon kan iframe og en vanlig HTML-side brukes 
+		// (forenkler, og gjør app.js mer oversiktlig). 
 		var eventScreen = {
-				title: 'Events',
+				title: 'Program',
                     iconCls: 'home',
                     cls: 'home',
                     scrollable: true,
                     html: [
-                        '<p>Planene for fadderukene.</p>'
+                        '<iframe style="position:absolute;left: 0px;width: 100%;top: 0px;height: 100%;" src="./program.html" />'
                     ].join("")
 				};
 				
-		var buddyScreen = {
+		var buddyScreen = Ext.create('Ext.List', {
 				title: 'Faddere',
-                    iconCls: 'home',
-                    cls: 'home',
-                    scrollable: true,
-                    html: [
-                        '<p>Få kontakt med en fadder</p>'                        
-                    ].join("")
-				};
+                iconCls: 'home',
+				store: store,
+				grouped: true,
+				itemTpl: 
+				[ 
+					'<div class="contact2">',
+					'<table><tr><td ROWSPAN=2>',
+						'<img style="margin-right: 8px;" src="img/buddy_82/{imageName}" />',
+						'</td><td></td>',
+					'<tr><td></td><td>',
+						'{firstName} {lastName}',
+					'</tr></table></div>'
+				],
+				disclosure: true,
+				onItemDisclosure: function(record, item, index, e) {
+					//show a messagebox alert which shows the persons firstName
+					e.stopEvent();
+					Ext.Msg.alert(record.get('firstName') + ' ' + record.get('lastName'), record.get('firstName') + ' kan nås på telefon ' + record.get('phone') + ' eller epost' + record.get('email'));
+				}
+			   });
 				
 		var mapScreen = Ext.create('Ext.Map', {
-            title: 'Faddere',
+            title: 'Kart',
 			iconCls: 'home',
 			cls: 'home',
 			scrollable: true,
