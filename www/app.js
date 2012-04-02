@@ -120,7 +120,7 @@
                 };
 				
 				
-		var eventScren = {
+		var eventScreen = {
 				title: 'Events',
                     iconCls: 'home',
                     cls: 'home',
@@ -141,7 +141,12 @@
 				};
 				
 		var mapScreen = Ext.create('Ext.Map', {
-            mapOptions : {
+            title: 'Faddere',
+			iconCls: 'home',
+			cls: 'home',
+			scrollable: true,
+			
+			mapOptions : {
                 center : new google.maps.LatLng(37.381592, -122.135672),  //nearby San Fran
                 zoom : 12,
                 mapTypeId : google.maps.MapTypeId.ROADMAP,
