@@ -24,13 +24,10 @@
 		//A file with that same name must exist in poth img/buddies_82 and img/buddies_320 
 		//with the resolution 82x82 pixels and 320x320 pixels respectively.
 		var store = Ext.create('Ext.data.Store', {
-            //give the store some fields
             fields: ['firstName', 'lastName', 'phone', 'email', 'imageName'],
 
             //filter the data using the firstName field
             sorters: 'firstName',
-
-            //autoload the data from the server
             autoLoad: true,
 
             //setup the grouping functionality to group by the first letter of the firstName field
@@ -50,93 +47,26 @@
 	
 	
         // The following is accomplished with the Google Map API
-        var position = new google.maps.LatLng(37.44885, -122.158592),  //Sencha HQ
+        var position = new google.maps.LatLng(59.129454,11.352868),  //Remmen, Halden, Norway
 
             infowindow = new google.maps.InfoWindow({
-                content: 'Sencha HQ'
+                content: ""
             }),
 
             //Tracking Marker Image
             image = new google.maps.MarkerImage(
-                'resources/images/point.png',
+                './img/point.png',
                 new google.maps.Size(32, 31),
                 new google.maps.Point(0, 0),
                 new google.maps.Point(16, 31)
             ),
 
             shadow = new google.maps.MarkerImage(
-                'resources/images/shadow.png',
+                './img/shadow.png',
                 new google.maps.Size(64, 52),
                 new google.maps.Point(0, 0),
                 new google.maps.Point(-5, 42)
-            ),
-
-            trackingButton = Ext.create('Ext.Button', {
-                iconMask: true,
-                iconCls: 'locate'
-            }),
-
-            trafficButton = Ext.create('Ext.Button', {
-                iconMask: true,
-                pressed: true,
-                iconCls: 'maps'
-            }),
-
-            toolbar = Ext.create('Ext.Toolbar', {
-                docked: 'top',
-                ui: 'light',
-                defaults: {
-                    iconMask: true
-                },
-                items: [
-                    {
-                        iconCls: 'home',
-                        handler: function() {
-                            //disable tracking
-                            var segmented = Ext.getCmp('segmented'),
-                                pressedButtons = segmented.getPressedButtons(),
-                                trafficIndex = pressedButtons.indexOf(trafficButton),
-                                newPressed = (trafficIndex != -1) ? [trafficButton] : [];
-                            segmented.setPressedButtons(newPressed);
-                            mapdemo.getMap().panTo(position);
-                        }
-                    },
-                    {
-                        id: 'segmented',
-                        xtype: 'segmentedbutton',
-                        allowMultiple: true,
-                        listeners: {
-                            toggle: function(buttons, button, active) {
-                                if (button == trafficButton) {
-                                    mapdemo.getPlugins()[1].setHidden(!active);
-                                }
-                                else if (button == trackingButton) {
-                                    var tracker = mapdemo.getPlugins()[0],
-                                        marker = tracker.getMarker();
-                                    marker.setVisible(active);
-                                    if (active) {
-                                        tracker.setTrackSuspended(false);
-                                        Ext.defer(function() {
-                                            tracker.getHost().on('centerchange', function() {
-                                                marker.setVisible(false);
-                                                tracker.setTrackSuspended(true);
-                                                var segmented = Ext.getCmp('segmented'),
-                                                    pressedButtons = segmented.getPressedButtons(),
-                                                    trafficIndex = pressedButtons.indexOf(trafficButton),
-                                                    newPressed = (trafficIndex != -1) ? [trafficButton] : [];
-                                                segmented.setPressedButtons(newPressed);
-                                            }, this, {single: true});
-                                        }, 50, this);
-                                    }
-                                }
-                            }
-                        },
-                        items: [
-                            trackingButton, trafficButton
-                        ]
-                    }
-                ]
-            });
+            );
 		
 		// For statiske skjermer uten noen funksjon kan iframe og en vanlig HTML-side brukes 
 		// (forenkler, og gjør app.js mer oversiktlig). 
@@ -193,9 +123,9 @@
 			
 			mapOptions : {
                 center : new google.maps.LatLng(37.381592, -122.135672),  //nearby San Fran
-                zoom : 12,
+                zoom : 14,
                 mapTypeId : google.maps.MapTypeId.ROADMAP,
-                navigationControl: true,
+                navigationControl: false,
                 navigationControlOptions: {
                     style: google.maps.NavigationControlStyle.DEFAULT
                 }
@@ -203,11 +133,11 @@
 
             plugins : [
                 new Ext.plugin.google.Tracker({
-                    trackSuspended: true,   //suspend tracking initially
-                    allowHighAccuracy: false,
+                    trackSuspended: false,   //suspend tracking initially
+                    allowHighAccuracy: true,
                     marker: new google.maps.Marker({
                         position: position,
-                        title: 'My Current Location',
+                        title: 'Du er her',
                         shadow: shadow,
                         icon: image
                     })
@@ -219,12 +149,35 @@
                 maprender: function(comp, map) {
                     var marker = new google.maps.Marker({
                         position: position,
-                        title : 'Sencha HQ',
+                        title : 'Remmen',
                         map: map
                     });
+					var stadion = new google.maps.Marker({
+						position: new google.maps.LatLng(59.122655,11.376193),
+						title: 'Stadion studentboliger',
+						map: map
+					});
+					
+					var kongens = new google.maps.Marker({
+						position: new google.maps.LatLng(59.11869,11.388488),
+						title: 'Kongens',
+						map: map
+					});
+					
 
                     google.maps.event.addListener(marker, 'click', function() {
-                        infowindow.open(map, marker);
+                        infowindow.setContent("Høgskolen i Østfold");
+						infowindow.open(map, marker);
+                    });
+					
+					google.maps.event.addListener(stadion, 'click', function() {
+                        infowindow.setContent("Stadion studentboliger");
+						infowindow.open(map, stadion);
+                    });
+					
+					google.maps.event.addListener(kongens, 'click', function() {
+                        infowindow.setContent("Kongens");
+						infowindow.open(map, kongens);
                     });
 
                     setTimeout(function() {
