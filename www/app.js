@@ -1,4 +1,10 @@
-﻿
+﻿//There is a known issue of this app not running on Android 3.x and up
+//This is an issue with Sencha Touch 2, and a fix is underway in 2.x
+//A potential fix was to disable certain Ajax features, but this broke 
+//the app horribly.
+
+//In other words: This app only supports Android 2.x at the time being. 
+//Other platforms should not be affected.
 
 Ext.application({
 	glossOnIcon: false,
@@ -22,10 +28,6 @@ Ext.application({
     launch: function() {
 		
 		//Serves as an interface against buddies.json
-		//All buddies must be stored in buddies.json with a first name, 
-		//last name, email, phone number and picture file name (captain_placeholder.jpg).
-		//A file with that same name must exist in poth img/buddies_82 and img/buddies_320 
-		//with the resolution 82x82 pixels and 320x320 pixels respectively.
 		var store = Ext.create('Ext.data.Store', {
             fields: ['firstName', 'lastName', 'phone', 'email', 'imageName'],
 
@@ -71,27 +73,28 @@ Ext.application({
                 new google.maps.Point(-5, 42)
             );
 		
-		// For statiske skjermer uten noen funksjon kan iframe og en vanlig HTML-side brukes 
-		// (forenkler, og gjør app.js mer oversiktlig). 
 		var homeScreen = {
                     title: 'Hjem',
                     iconCls: 'home',
                     cls: 'home',
-                    scrollable: true,
+                    scrollable: false,
                     html: [
-                        '<iframe style="position:absolute;left: 0px;width: 100%;top: 0px;height: 100%;" src="./hjem.html" />'
+                        '<center>',
+						'<img height=260 src="img/enigma_logo.jpg" />',
+						'<h1>Velkommen til IT-avdelingen ved Høgskolen i Østfold!</h1><p>Trenger du å finne fram til et sted eller en fadder? Denne appen er laget nettop for deg!</p>',
+						'<p>Finn fram til der det skjer med det innebyggede kartet, eller få kontakt med en fadder. Du finner også enkelt planene for fadderukene.</p>',
+						'<p>Besøk oss gjerne på <a href="http://enigma.hiof.no">forumet</a>!</p>',
+						'</center>'
                     ].join("")
                 };
-				
-		// For statiske skjermer uten noen funksjon kan iframe og en vanlig HTML-side brukes 
-		// (forenkler, og gjør app.js mer oversiktlig). 
+		
 		var eventScreen = {
 				title: 'Program',
                     iconCls: 'home',
                     cls: 'home',
                     scrollable: true,
                     html: [
-                        '<iframe style="position:absolute;left: 0px;width: 100%;top: 0px;height: 100%;" src="./program.html" />'
+                        '<p>Programtabell her</p>'
                     ].join("")
 				};
 				
@@ -130,10 +133,15 @@ Ext.application({
                 center : position, 
                 zoom : 14,
                 mapTypeId : google.maps.MapTypeId.ROADMAP,
-                navigationControl: true,
-                navigationControlOptions: {
-                    style: google.maps.NavigationControlStyle.DEFAULT
-                }
+                streetViewControl: false,
+                navigationControl: false,
+                overviewMapControl: false,
+                scaleControl: false,
+                mapTypeControl: false,
+                panControl: false,
+                zoomControl: true
+                //Zoom controls are needed as pinch-zoom is not 
+                //supported by PhoneGap on most Android phones
             },
 
             plugins : [
