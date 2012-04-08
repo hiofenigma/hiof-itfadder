@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		642D8BDD1532471700E23149 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 642D8BDC1532471700E23149 /* www */; };
 		6448741615322742008B6421 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6448741515322742008B6421 /* Foundation.framework */; };
 		6448741815322742008B6421 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6448741715322742008B6421 /* UIKit.framework */; };
 		6448741A15322742008B6421 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6448741915322742008B6421 /* CoreGraphics.framework */; };
@@ -38,10 +39,10 @@
 		6448746115322742008B6421 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6448746015322742008B6421 /* MainViewController.m */; };
 		6448746315322742008B6421 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6448746215322742008B6421 /* MainViewController.xib */; };
 		6448746715322743008B6421 /* verify.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6448746615322743008B6421 /* verify.sh */; };
-		6448747F153231A0008B6421 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 6448747E153231A0008B6421 /* www */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		642D8BDC1532471700E23149 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../../www; sourceTree = "<group>"; };
 		6448741115322742008B6421 /* ITFadder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ITFadder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6448741515322742008B6421 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6448741715322742008B6421 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -79,7 +80,6 @@
 		6448746215322742008B6421 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainViewController.xib; path = Classes/MainViewController.xib; sourceTree = "<group>"; };
 		6448746515322743008B6421 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = Plugins/README; sourceTree = "<group>"; };
 		6448746615322743008B6421 /* verify.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = verify.sh; sourceTree = "<group>"; };
-		6448747E153231A0008B6421 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../../www; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +154,7 @@
 		6448742F15322742008B6421 /* ITFadder */ = {
 			isa = PBXGroup;
 			children = (
+				642D8BDC1532471700E23149 /* www */,
 				6448743815322742008B6421 /* Cordova.framework */,
 				6448743A15322742008B6421 /* Resources */,
 				6448745B15322742008B6421 /* Classes */,
@@ -180,7 +181,6 @@
 		6448743A15322742008B6421 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6448747E153231A0008B6421 /* www */,
 				6448745715322742008B6421 /* Capture.bundle */,
 				6448743B15322742008B6421 /* en.lproj */,
 				6448743F15322742008B6421 /* es.lproj */,
@@ -333,7 +333,7 @@
 				6448745A15322742008B6421 /* Cordova.plist in Resources */,
 				6448746315322742008B6421 /* MainViewController.xib in Resources */,
 				6448746715322743008B6421 /* verify.sh in Resources */,
-				6448747F153231A0008B6421 /* www in Resources */,
+				642D8BDD1532471700E23149 /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
