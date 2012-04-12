@@ -21,7 +21,7 @@
 //  AppDelegate.h
 //  ITFadder
 //
-//  Created by Stian Drøbak on 08.04.12.
+//  Created by Stian Drøbak on 13.04.12.
 //  Copyright HIOF 2012. All rights reserved.
 //
 
@@ -34,17 +34,15 @@
 #endif
 
 
-@interface AppDelegate : NSObject < UIApplicationDelegate, UIWebViewDelegate, CDVCommandDelegate > {
+@interface AppDelegate : NSObject < UIApplicationDelegate > {
 
-	NSString* invokeString;
 }
 
 // invoke string is passed to your app on launch, this is only valid if you 
-// edit FooBar.plist to add a protocol
+// edit ITFadder-Info.plist to add a protocol
 // a simple tutorial can be found here : 
 // http://iphonedevelopertips.com/cocoa/launching-your-own-application-via-a-custom-url-scheme.html
 
-@property (nonatomic, copy)  NSString* invokeString;
 @property (nonatomic, retain) IBOutlet UIWindow* window;
 @property (nonatomic, retain) IBOutlet CDVViewController* viewController;
 

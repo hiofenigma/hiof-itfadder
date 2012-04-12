@@ -21,7 +21,7 @@
 //  MainViewController.h
 //  ITFadder
 //
-//  Created by Stian Drøbak on 08.04.12.
+//  Created by Stian Drøbak on 13.04.12.
 //  Copyright HIOF 2012. All rights reserved.
 //
 
