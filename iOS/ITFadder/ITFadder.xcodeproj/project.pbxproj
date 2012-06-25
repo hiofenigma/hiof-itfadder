@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		642D8BDD1532471700E23149 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 642D8BDC1532471700E23149 /* www */; };
+		642E39EE15988A8000580881 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 642E39ED15988A8000580881 /* www */; };
 		6448741615322742008B6421 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6448741515322742008B6421 /* Foundation.framework */; };
 		6448741815322742008B6421 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6448741715322742008B6421 /* UIKit.framework */; };
 		6448741A15322742008B6421 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6448741915322742008B6421 /* CoreGraphics.framework */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		642D8BDC1532471700E23149 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../../www; sourceTree = "<group>"; };
+		642E39ED15988A8000580881 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		6448741115322742008B6421 /* ITFadder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ITFadder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6448741515322742008B6421 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6448741715322742008B6421 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -117,6 +119,7 @@
 		6448740315322742008B6421 = {
 			isa = PBXGroup;
 			children = (
+				642E39ED15988A8000580881 /* www */,
 				6448742F15322742008B6421 /* ITFadder */,
 				6448741415322742008B6421 /* Frameworks */,
 				6448741215322742008B6421 /* Products */,
@@ -334,6 +337,7 @@
 				6448746315322742008B6421 /* MainViewController.xib in Resources */,
 				6448746715322743008B6421 /* verify.sh in Resources */,
 				642D8BDD1532471700E23149 /* www in Resources */,
+				642E39EE15988A8000580881 /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
