@@ -1,7 +1,0 @@
-Dette er repoet for IT-fadderappen som utvikles av Enigma ved Høgskolen i Østfold
-
-Appen utvikles med Sencha Touch 2 og PhoneGap.
-
-Selve appen ligger i www og det anbefalles at du utvikler den på en lokal webserver og debugger den der. 
-
-Skal du teste den på en telefon (foreløpig ligger kun Android ute) kopierer du innholdet av www til android/assets/www og kompilerer det med Eclipse som en vanlig app (Run/Debug as... Android application).
