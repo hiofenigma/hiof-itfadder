@@ -17,7 +17,7 @@ var init = function (onSelectFeatureFunction) {
 
     var vector = new OpenLayers.Layer.Vector("Vector Layer", {});
 
-    var sprintersLayer = new OpenLayers.Layer.Vector("Sprinters", {
+    var studentPointsOfInterest = new OpenLayers.Layer.Vector("pointsOfInterest", {
         styleMap: new OpenLayers.StyleMap({
             externalGraphic: "img/mobile-loc.png",
             graphicOpacity: 1.0,
@@ -27,10 +27,10 @@ var init = function (onSelectFeatureFunction) {
         })
     });
 
-    var sprinters = getFeatures();
-    sprintersLayer.addFeatures(sprinters);
+    var pointsOfInterest = getFeatures();
+    studentPointsOfInterest.addFeatures(pointsOfInterest);
 
-    var selectControl = new OpenLayers.Control.SelectFeature(sprintersLayer, {
+    var selectControl = new OpenLayers.Control.SelectFeature(studentPointsOfInterest, {
         autoActivate:true,
         onSelect: onSelectFeatureFunction});
 
@@ -86,7 +86,7 @@ var init = function (onSelectFeatureFunction) {
                 transitionEffect: 'resize'
             }),
             vector,
-            sprintersLayer
+            studentPointsOfInterest
         ],
         center: lonLatToMercator(11.352868, 59.129454),
         zoom: 16

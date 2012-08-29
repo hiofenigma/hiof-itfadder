@@ -7,52 +7,7 @@ Ext.define('ITFadder.view.Studentmap', {
 		title: 'Kart',
 		items: [
 		{
-			xtype: 'titlebar',
-			docked: 'top',
-			title: '<p>Studentkart</p>',
-		},
-		{
-				xtype: "component",
-				scroll: false,
-				monitorResize: true,
-				id: "map",
-				listeners: {
-					painted: function() {
-						var self = this;
-						init(function(feature) {
-							var htmlContent = "";
-							for (var property in feature.data) {
-								if (feature.data[property] != 'undefined') {
-									htmlContent = htmlContent + feature.data[property] + "<br>";
-								}
-							}
-							if (self.featurePopup) {
-								self.featurePopup.destroy();
-							}
-							self.featurePopup = new Ext.Panel({
-								modal: true,
-								centered: true,
-								hideOnMaskTap: true,
-								width: 240,
-								html: htmlContent,
-								scroll: 'vertical'
-							});
-							Ext.Viewport.add(self.featurePopup);
-							self.featurePopup.show();
-						})
-					},
-					resize: function() {
-						if (window.map) {
-							map.updateSize();
-						}
-					},
-					scope: {
-						featurePopup: null
-					}
-				}
-			},
-		{
-			docked: "bottom",
+			docked: "top",
 			xtype: "toolbar",
 			ui: "light",
 			layout: {
@@ -84,7 +39,47 @@ Ext.define('ITFadder.view.Studentmap', {
 					map.zoomOut();
 				}
 			}]
-		}
+		},
+		{
+				xtype: "component",
+				scrollable: false,
+				monitorResize: true,
+				id: "map",
+				listeners: {
+					painted: function() {
+						var self = this;
+						init(function(feature) {
+							var htmlContent = "";
+							for (var property in feature.data) {
+								if (feature.data[property] != 'undefined') {
+									htmlContent = htmlContent + feature.data[property] + "<br>";
+								}
+							}
+							if (self.featurePopup) {
+								self.featurePopup.destroy();
+							}
+							self.featurePopup = new Ext.Panel({
+								modal: true,
+								centered: true,
+								hideOnMaskTap: true,
+								width: 240,
+								html: htmlContent,
+								scrollable: 'vertical'
+							});
+							self.featurePopup.show();
+						})
+					},
+					resize: function() {
+						if (window.map) {
+							map.updateSize();
+						}
+					},
+					scope: {
+						featurePopup: null
+					}
+				}
+			},
+		
         ]
     }
 });
