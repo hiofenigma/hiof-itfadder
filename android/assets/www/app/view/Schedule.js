@@ -4,12 +4,12 @@ Ext.define('ITFadder.view.Schedule', {
 	
     config: {
         iconCls: 'organize',
-        title: 'Program',
+        title: 'Fadderukene',
         items: [
 		{
 			xtype: 'titlebar',
 			docked: 'top',
-			title: '<p>Fadderukene 2012</p>',
+			title: '<p>Fadderukene</p>',
 		},
 		{
 			xtype: 'panel',

@@ -11,7 +11,7 @@ Ext.define('ITFadder.view.Buddies', {
 		{
 			xtype: 'titlebar',
 			docked: 'top',
-			title: '<p>Faddere 2012</p>',
+			title: '<p>Faddere</p>',
 		},
 		{
 			xtype: 'list',
