@@ -8,6 +8,11 @@
 
 Ext.application({
     name: 'ITFadder',
+	
+	icon: 'resources/icons/icon.png',
+    phoneStartupScreen: 'resources/loading/Homescreen.jpg',
+    tabletStartupScreen: 'resources/loading/Homescreen~ipad.jpg',
+	
 	controllers: ['Buddies'],
 	views: ['Main'],
 	launch: function() {

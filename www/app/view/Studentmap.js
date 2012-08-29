@@ -1,96 +1,89 @@
 Ext.define('ITFadder.view.Studentmap', {
 	extend: 'Ext.Panel',
-    xtype: 'mapcard',
+    xtype: 'studentmapcard',
 	config: {
         iconCls: 'maps',
-        title: 'Kart',
-        items: [
+        layout: 'card',
+		title: 'Kart',
+		items: [
 		{
 			xtype: 'titlebar',
 			docked: 'top',
 			title: '<p>Studentkart</p>',
 		},
 		{
-			
-			
-			xtype: 'map',
-			mapOptions : {
-                center : position, 
-                zoom : 14,
-                mapTypeId : google.maps.MapTypeId.ROADMAP,
-                streetViewControl: false,
-                navigationControl: false,
-                overviewMapControl: false,
-                scaleControl: false,
-                mapTypeControl: false,
-                panControl: false,
-                zoomControl: true
-                //Zoom controls are needed as pinch-zoom is not 
-                //supported by PhoneGap on most Android phones
-            },
-            plugins : [
-                new Ext.plugin.google.Tracker({
-                    trackSuspended: true,   //suspend tracking initially
-                    allowHighAccuracy: true,
-                    marker: new google.maps.Marker({
-                        position: position,
-                        title: 'Du er her',
-                        shadow: shadow,
-                        icon: image
-                    })
-                }),
-                new Ext.plugin.google.Traffic()
-            ],
-            listeners: {
-                maprender: function(comp, map) {
-                    var directionsDisplay = new google.maps.DirectionsRenderer();
-					var directionsService = new google.maps.DirectionsService();
-					directionsDisplay.setMap(map);
-					
-					var remmen = new google.maps.Marker({
-                        position: new google.maps.LatLng(59.129102,11.352654),
-                        title : 'Remmen',
-                        map: map
-                    });
-					var stadion = new google.maps.Marker({
-						position: new google.maps.LatLng(59.122655,11.376193),
-						title: 'Stadion studentboliger',
-						map: map
-					});
-					
-					var kongens = new google.maps.Marker({
-						position: new google.maps.LatLng(59.11869,11.388488),
-						title: 'Kongens',
-						map: map
-					});
-					
-
-                    google.maps.event.addListener(remmen, 'click', function() {
-                        infowindow.setContent("Høgskolen i Østfold");
-						infowindow.open(map, remmen);
-                    });					
-					google.maps.event.addListener(remmen, 'dblclick', function() {
-						calcRoute(position, remmen.position, map)  
-                    });
-					
-					google.maps.event.addListener(stadion, 'click', function() {
-                        infowindow.setContent("Stadion studentboliger");
-						infowindow.open(map, stadion);
-                    });					
-					google.maps.event.addListener(stadion, 'dblclick', function() {
-                        calcRoute(position, stadion.position, map)   
-                    });
-					
-					google.maps.event.addListener(kongens, 'click', function() {
-                        infowindow.setContent("Kongens");
-						infowindow.open(map, kongens);
-                    });					
-					google.maps.event.addListener(kongens, 'dblclick', function() {
-                        calcRoute(position, kongens.position, map)
-                    });
-                }
-
-            }
+				xtype: "component",
+				scroll: false,
+				monitorResize: true,
+				id: "map",
+				listeners: {
+					painted: function() {
+						var self = this;
+						init(function(feature) {
+							var htmlContent = "";
+							for (var property in feature.data) {
+								if (feature.data[property] != 'undefined') {
+									htmlContent = htmlContent + feature.data[property] + "<br>";
+								}
+							}
+							if (self.featurePopup) {
+								self.featurePopup.destroy();
+							}
+							self.featurePopup = new Ext.Panel({
+								modal: true,
+								centered: true,
+								hideOnMaskTap: true,
+								width: 240,
+								html: htmlContent,
+								scroll: 'vertical'
+							});
+							Ext.Viewport.add(self.featurePopup);
+							self.featurePopup.show();
+						})
+					},
+					resize: function() {
+						if (window.map) {
+							map.updateSize();
+						}
+					},
+					scope: {
+						featurePopup: null
+					}
+				}
+			},
+		{
+			docked: "bottom",
+			xtype: "toolbar",
+			ui: "light",
+			layout: {
+				pack: "center"
+			},
+			items: [{
+				iconCls: "locate",
+				iconMask: true,
+				handler: function() {
+					var geolocate = map.getControlsBy("id", "locate-control")[0];
+					if (geolocate.active) {
+						geolocate.getCurrentLocation();
+					} else {
+						geolocate.activate();
+					}
+				}
+			}, {
+				xtype: "spacer"
+			}, {
+				iconMask: true,
+				iconCls: "add",
+				handler: function() {
+					map.zoomIn();
+				}
+			}, {
+				iconMask: true,
+				iconCls: "minus",
+				handler: function() {
+					map.zoomOut();
+				}
+			}]
 		}
         ]
     }
