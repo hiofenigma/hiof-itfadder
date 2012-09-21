@@ -1,10 +1,45 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-<head>
-<title>PhoneGap</title>
-<script type="text/javascript" charset="utf-8" src="cordova-1.x.x.js"></script>
-</head>
-<body>
-<h1>Hello World</h1>
-</body>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>IT-fadder</title>
+        <script src="lib/touch/src/OpenLayers.mobile.js"></script>
+       	<script type="text/javascript" src="lib/touch/sencha-touch-debug.js"></script>
+		<link href="lib/touch/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" />
+        <script src="mobile-base.js"></script>
+        <style>
+            img.minus {
+                -webkit-mask-image: url(img/minus1.png);
+            }
+
+            img.layers {
+                -webkit-mask-image: url(img/list.png);
+            }
+
+            #map {
+                width: 100%;
+                height: 100%;
+            }
+
+            .olControlAttribution {
+                font-size: 10px;
+                bottom: 5px;
+                right: 5px;
+            }
+			
+			.contacts2{
+				display: block;
+			}
+
+            
+        </style>
+		<script src="app.js"></script>
+		<script>
+			window.init();
+		</script>
+    </head>
+    <body>
+    </body>
 </html>
