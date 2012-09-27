@@ -24,4 +24,3 @@ Ext.define('ITFadder.view.Main', {
         ]
     }
 });
-

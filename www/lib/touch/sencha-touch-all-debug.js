@@ -1,3 +1,5 @@
+alert("Hello nya!");
+
 /*
 This file is part of Sencha Touch 2.0
 

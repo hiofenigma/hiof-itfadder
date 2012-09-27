@@ -5,7 +5,6 @@
 
 //In other words: This app only supports Android 2.x at the time being. 
 //Other platforms should not be affected.
-
 Ext.application({
     name: 'ITFadder',
 	
@@ -21,5 +20,4 @@ Ext.application({
 		});
 	}
 });
-
 
